@@ -10,7 +10,7 @@ Certifique-se de ter o Node instalado na sua máquina. Você pode baixá-lo em [
     git clone https://github.com/RyanFurt12/DesafioGoogleSheets.git
     cd DesafioGoogleSheets
 ```
-Adicionar credenciais.json das suas credencials da api do google sheets
+Adicionar [credenciais.json](https://drive.google.com/drive/folders/14O5iyDzfsHVmg1txW8vFU4A3EFwyf_oD?usp=drive_link) das suas credencials da api do google sheets
 ```bash
     node app.js
 ```
