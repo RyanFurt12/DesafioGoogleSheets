@@ -22,10 +22,11 @@ const calculateSituation = (average, totalFails, totalClasses) =>
 };
 
 const updateSheet = async () => {
-    const client = await auth.getClient();
-    const sheetsInstance = google.sheets({ version: 'v4', auth: client });
-
+    
     try {
+        const client = await auth.getClient();
+        const sheetsInstance = google.sheets({ version: 'v4', auth: client });
+
         const response = await sheetsInstance.spreadsheets.values.get({
             spreadsheetId: SPREADSHEET_ID,
             range: RANGE,
@@ -38,13 +39,13 @@ const updateSheet = async () => {
         const request = {
             spreadsheetId: SPREADSHEET_ID,
             resource: {
-              requests: requests,
+              requests,
             },
             auth: client,
         };
         
         try {
-            const response = await sheetsInstance.spreadsheets.batchUpdate(request);
+            await sheetsInstance.spreadsheets.batchUpdate(request);
             console.log('Style update successful\n');
         } catch (error) {
             console.error('Error in batch update:', error.message);
@@ -67,11 +68,11 @@ const updateSheet = async () => {
 
             if (situation === 'Exame Final') {
                 naf = Math.ceil((70 - average) * 2 + average);
-                // finalGrade = Math.round((average + naf) / 2);
             }
 
+            const sheetThirdRow = 3;
             const updateData = [[situation, naf]];
-            const updateRange = `engenharia_de_software!G${studentId + 3}:H${studentId + 3}`;
+            const updateRange = `engenharia_de_software!G${studentId + sheetThirdRow}:H${studentId + sheetThirdRow}`;
 
             await sheetsInstance.spreadsheets.values.update({
                 spreadsheetId: SPREADSHEET_ID,
